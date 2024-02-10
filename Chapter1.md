@@ -57,6 +57,29 @@ A symbolic representation of machine instructions.
 #### Machine Language
 A binary representation of machine instructions.
 
+## 1.4 Under the Covers
+
+The five classic components of a computer are input, output, memory, datapath, and control, with the last two sometimes combined and called the processor. 
+
+- Input data from a keyboard, file, network, etc., is written in memory.
+
+- A datapath operates on data.
+
+- Output reads data from memory.
+
+- Control sends the signals that determine the operations of the datapath, memory, input, and output.
+
+
+<strong>Liquid crystal display</strong>: A display technology using a thin layer of liquid polymers that can be used to transmit or block light according to whether a charge is applied.
+
+<strong>Active matrix display</strong>: A liquid crystal display using a transistor to control the transmission of light at each individual pixel.
+
+#### A processor consists of 2 main components:
+- Datapath - the component of the processor that performs math operations
+- Control - the component of the processor that commands the datapath, memory, and I/O devices according to the instructions of the program.
+
+<strong>Memory</strong>: The storage area in which programs are kept when they are running and that contains the data needed by the running programs.
+<strong>Dynamic random access memory (DRAM)</strong>: Memory built as an integrated circuit; it provides random access to any location. Access times are 50 nanoseconds and cost per gigabyte in 2020 was $3 to $6.
 
 
 
