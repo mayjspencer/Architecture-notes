@@ -108,6 +108,88 @@ The combination of the basic instruction set and the operating system interface 
 
 
 
+## 1.5 Building processors and memoru
+
+<strong>Transistor</strong>: An on/off switch controlled by an electric signal.
+
+DRAM capacity growth has slowed down and doubles, rather than quadruples, every two to three years.
+
+<strong>Silicon</strong>: A natural element that is a semiconductor - a substance that does not conduct electricity well.
+
+With a special chemical process, it is possible to add materials to silicon that allow tiny areas to transform into one of three devices:
+
+- Excellent conductors of electricity (using either microscopic copper or aluminum wire)
+
+- Excellent insulators from electricity (like plastic sheathing or glass)
+
+- Areas that can conduct or insulate under special conditions (as a switch)
+
+
+#### Building Chips
+The process starts with a silicon crystal ingot, which looks like a giant sausage.
+
+An ingot is finely sliced into wafers no more than 0.1 inches thick.
+
+These wafers then go through a series of processing steps, during which patterns of chemicals are placed on each wafer, creating the transistors, conductors, and insulators discussed earlier. 
+
+These patterned wafers are then tested with a wafer tester, and a map of the good parts is made.
+
+Then, the wafers are diced into dies.
+
+<strong>Die</strong>: The individual rectangular sections that are cut from a wafer, more informally known as chips.
+
+These good dies are then bonded into packages and tested one more time before shipping the packaged parts to customers.
+
+<strong>Yield</strong>: The percentage of good dies from the total number of dies on the wafer.
+
+#### Equations
+
+Cost per die = 
+(Cost per Wafer) 
+\ 
+(Dies per wafer * yield)
+
+Dies per wafer ~= Wafer area / Die area
+
+Yield = 1 / ( 1 + (Defects per area * (Die area/2)))^2
+
+
+## 1.6 Performance
+
+#### Metrics
+
+<strong>Execution time</strong>: The total time required for the computer to complete a task, including disk accesses, memory accesses, I/O activities, operating system overhead, CPU execution time, and so on.
+
+<strong>Throughput</strong>: Also called bandwidth. Another measure of performance, it is the number of tasks completed per unit time.
+
+#### Equations
+
+X is n times faster than Y 
+- Performance X / Performance Y = n
+
+If X is n times as fast as Y, then the execution time on Y is n times as long as it is on X:
+- Performance X / Performance Y = Exectution Time Y / Execution Time X = n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
