@@ -78,8 +78,36 @@ The five classic components of a computer are input, output, memory, datapath, a
 - Datapath - the component of the processor that performs math operations
 - Control - the component of the processor that commands the datapath, memory, and I/O devices according to the instructions of the program.
 
+### Memory
 <strong>Memory</strong>: The storage area in which programs are kept when they are running and that contains the data needed by the running programs.
+
 <strong>Dynamic random access memory (DRAM)</strong>: Memory built as an integrated circuit; it provides random access to any location. Access times are 50 nanoseconds and cost per gigabyte in 2020 was $3 to $6.
+
+Inside the processor is a different kind of memory - cache. 
+
+<strong>Cache memory</strong> consists of a small, fast memory that acts as a buffer for the DRAM memory.
+- cache is built using static random access memory
+
+<strong>Static random access memory (SRAM)</strong>: Also memory built as an integrated circuit, but faster and less dense than DRAM.
+
+### Instruction Set Architecture
+
+The combination of the basic instruction set and the operating system interface provided for application programmers is called the <strong>application binary interface (ABI)</srtong>.
+
+<srtong>Instruction set architecture</strong> -  An abstract interface between the hardware and the lowest-level software that encompasses all the information necessary to write a machine language program that will run correctly, including instructions, registers, memory access, I/O, and so on.
+
+### Memory
+
+<strong>Main memory</strong>: Also called primary memory. Memory used to hold programs while they are running; typically consists of DRAM in today's computers.
+
+<strong>Secondary memory</strong>: Nonvolatile memory used to store programs and data between runs; typically consists of flash memory in PMDs and magnetic disks in servers.
+
+<strong>Magnetic disk</strong>: Also called hard disk. A form of nonvolatile secondary memory composed of rotating platters coated with a magnetic recording material.
+
+<srtong>Flash memory</strong>: A nonvolatile semiconductor memory. It is cheaper and slower than DRAM but more expensive per bit and faster than magnetic disks. 
+
+
+
 
 
 
