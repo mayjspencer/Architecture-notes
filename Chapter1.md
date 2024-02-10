@@ -27,7 +27,7 @@
   
   queccabyte	QB 1000^10	quebibyte	2^100 QiB		27%
 
-## 1.2 7 fundamentals
+## 1.2 Seven fundamentals
 
 #### Use abstracion to simplify
 
