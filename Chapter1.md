@@ -156,19 +156,78 @@ Yield = 1 / ( 1 + (Defects per area * (Die area/2)))^2
 
 ## 1.6 Performance
 
-#### Metrics
+### Metrics
 
 <strong>Execution time</strong>: The total time required for the computer to complete a task, including disk accesses, memory accesses, I/O activities, operating system overhead, CPU execution time, and so on.
 
 <strong>Throughput</strong>: Also called bandwidth. Another measure of performance, it is the number of tasks completed per unit time.
 
-#### Equations
+### Equations
 
 X is n times faster than Y 
-- Performance X / Performance Y = n
+### - Performance X / Performance Y = n
 
 If X is n times as fast as Y, then the execution time on Y is n times as long as it is on X:
-- Performance X / Performance Y = Exectution Time Y / Execution Time X = n
+### - Performance X / Performance Y = Exectution Time Y / Execution Time X = n
+
+<strong>Example:</strong> If computer A runs a program in 10 seconds and computer B runs the same program in 15 seconds, how much faster is A than B?
+
+Execution Time B / Execution Time A = <strong>15 / 10 = 1.5</strong>
+
+### CPU Time
+CPU time is the actual time the CPU spends computing for a specific task. It does not include time spent waiting on I/O instructions.
+
+User CPU time: The CPU time spent in a program itself.
+
+System CPU time: The CPU time spent in the operating system performing tasks on behalf of the program.
+
+System performance refers to elapsed time on an unloaded system and CPU performance refers to user CPU time
+
+### The Clock
+Clock Cycle: The time for one clock period, usually of the processor clock, which runs at a constant rate.
+
+Clock period: The length of each clock cycle.  = 1 / Clock Cycle
+
+A particular processor has a clock rate of 1 GHz. The clock thus ticks one billion times per second
+
+A clock rate of 1 GHz corresponds to a period of 1 nanosecond, which is 1x10-9 seconds.
+
+#### CPU clock cycles = Instructions for a program X Average clock cycles per instruction (CPI)
+- CPI provides one way of comparing two different implementations of the same instruction set architecture
+- <strong>Clock cycles per instruction (CPI)</strong>: Average number of clock cycles per instruction for a program or program fragment.
+
+#### CPU Time = Clock Cycles X Clock Cycle Time
+<strong>Example:</strong> Computer A: clock cycle time of 250 ps and a CPI of 2.0    |     Computer : clock cycle time of 500 ps and a CPI of 1.2
+
+CPU Time A = Clock Cycles X Clock Cycle Time
+= I * 2.0 * 250 = 500 * I ps
+
+CPU Time B = Clock Cycles X Clock Cycle Time
+= I * 1.2 * 500 = 600 * I ps
+
+A is faster by 1.2 ratio
+
+### Classic CPU Perfomance Equation
+
+#### CPU time = Instruction Time X CPI X Clock Cycle Time
+
+#### CPU tmime = (Instruction Time X CPI) / Clock Rate
+
+
+## 1.7 The Power Wall
+
+#### Clock rates stopped increasing around 2004 because of power.
+
+The power required per transistor is just the product of energy of a transition and the frequency of transitions:
+
+#### Power = 1/2 * Capacitative Load * Voltage^2 * Frequency
+
+Frequency switched is a function of the clock rate. 
+
+The capacitive load per transistor is a function of both the number of transistors connected to an output (called the fanout) and the technology, which determines the capacitance of both wires and transistors.
+
+#### Why can't we get more power ? 
+The problem today is that further lowering of the voltage appears to make the transistors too leaky, like water faucets that cannot be completely shut off.
 
 
 
@@ -178,15 +237,41 @@ If X is n times as fast as Y, then the execution time on Y is n times as long as
 
 
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
 
 
 
