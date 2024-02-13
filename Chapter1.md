@@ -244,6 +244,29 @@ Programmers will have to continue to improve performance of their code as the nu
 
 This means programmers must focus on performance and splitting work.
 
+## 1.11 Pitfalls
+
+### Pitfall: Expecting the improvement of one aspect of a computer to increase overall performance by an amount proportional to the size of the improvement.
+
+<strong>Amdahl's Law</strong>: A rule stating that the performance enhancement possible with a given improvement is limited by the amount that the improved feature is used
+
+Execution Time after Improvement = Execution Tim affected by Improvement / Amount of Improvement + Execution Time Unaffected
+
+### Pitfall: Computers at low utilization use little power.
+
+Example: even when computers are at 10% utilization - they can consume about 50% of peak power.
+
+### Pitfall: Using a subset of the performance equation as a performance metric.
+
+Alternative to time as performanc metric: MIPS
+
+<strong>Million instructions per second (MIPS)</strong>: A measurement of program execution speed based on the number of millions of instructions. MIPS = the instruction count / (execution time * 10^6).
+- We cannot compare computers with different instruction sets using MIPS, since the instruction counts will certainly differ.
+- MIPS varies between programs on the same computer; thus, a computer cannot have a single MIPS rating.
+
+
+## 1.15 History of Computers
+
 
 
 
