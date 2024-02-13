@@ -229,6 +229,20 @@ The capacitive load per transistor is a function of both the number of transisto
 #### Why can't we get more power ? 
 The problem today is that further lowering of the voltage appears to make the transistors too leaky, like water faucets that cannot be completely shut off.
 
+This led to the big shift to multiprocessors
+
+## 1.8 Multiprocessors
+
+### Lack of Response Time Improvement
+The power limit halted improvement in response time.  Since 2002, the rate has slowed from a factor of 1.5 per year to a factor of only 1.03 per year.
+
+### Push in Throughput Growth
+The focus is on microprocessors with multiple processors per chip, where the benefit is often more on throughput than on response time.
+
+### The Effect
+Programmers will have to continue to improve performance of their code as the number of cores increases.
+
+This means programmers must focus on performance and splitting work.
 
 
 
