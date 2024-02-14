@@ -20,3 +20,53 @@ This similarity of instruction sets occurs because all computers are constructed
 By learning how to represent instructions, you will also discover the secret of computing: <strong>the stored-program concept</strong>.
 
 <strong>Stored-program concept</strong>: The idea that instructions and data of many types can be stored in memory as numbers, leading to the stored-program computer.
+
+## 2.2 Operations of the Computer Hardware
+The MIPS assembly language notation: 
+
+<strong>add a, b, c</strong> 
+
+instructs a computer to add the two variables b and c and to put their sum in a.
+
+Each MIPS arithmetic instruction performs only one operation and must always have exactly three variables. 
+- For example, suppose we want to place the sum of four variables b, c, d, and e into variable a.
+
+  add a, b, c   # The sum of b and c is placed in a
+  
+  add a, a, d   # The sum of b, c, and d is now in a
+  
+  add a, a, e   # The sum of b, c, d, and e is now in a
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
