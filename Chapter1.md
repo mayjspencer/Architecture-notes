@@ -267,9 +267,66 @@ Alternative to time as performanc metric: MIPS
 
 ## 1.15 History of Computers
 
+### WWII
+J. Presper Eckert and John Mauchly, University of Pennsylvania, built the world's first operational computer called the <strong>ENIAC</strong> (Electronic Numerical Integrator and Calculator) not publicly disclosed until 1946.
 
+Programming was done manually by plugging cables and setting switches, and data was entered on punched cards. 
 
+<strong>von Neumann</strong> inspired by the ENIAC, helped crystallize the ideas and wrote a memo proposing a stored-program computer called EDVAC
 
+EDSAC became operational in 1949 and was the world's first full-scale, operational, stored-program computer.
+
+During World War II special-purpose electronic computers were built to decrypt the intercepted German messages. A team in England, including Alan Turing, built the Colossus in 1943.
+
+In contrast to earlier machines like EDSAC, which used a single memory for instructions and data, the Mark-III and Mark-IV had separate memories for instructions and data. The machines were regarded as reactionary by the advocates of stored-program computers; the term Harvard architecture was coined to describe machines with separate memories. Paying respect to history, this term is used today in a different sense to describe machines with a single main memory but with separate caches for instructions and data.
+
+### Post-War
+First delivered in June 1951, UNIVAC I sold for about $1 million and was the first successful commercial computer—48 systems were built.
+
+IBM shipped its first computer in 1952.
+
+In the early 1950s, many people were pessimistic about the future of computers, believing that the market and opportunities for these "highly specialized" machines were quite limited.
+- It's not a computer in any previous sense. It's not a product, but a line of products … that spans in performance from the very low part of the computer line to the very high. (IBM CEO)
+
+### 60s-70s
+
+#### PC
+The minicomputer was a small machine that was a breakthrough in low-cost design, allowing DEC to offer a computer for under $20,000. Minicomputers were the forerunners of microprocessors, with Intel inventing the first microprocessor in 1971—the Intel 4004.
+
+There is no single fountainhead for the personal computer, but in 1977, the Apple IIc (figure below) from Steve Jobs and Steve Wozniak set standards for low cost, high volume, and high reliability that defined the personal computer industry
+
+The IBM Personal Computer, announced in 1981, became the best-selling computer of any kind; its success gave Intel the most popular microprocessor and Microsoft the most popular operating system. 
+
+The first personal computers had 16-bit processors and 64 kilobytes of memory, and a low-density, slow floppy disk was the only nonvolatile storage! Floppy disks were originally developed by IBM for loading diagnostic programs in mainframes, but were a major I/O device in personal computers for almost 20 years before the advent of CDs and networking made them obsolete as a method for exchanging data.
+
+#### Super Computer
+In 1963 came the announcement of the first supercomputer, an extremely fast computer targeted to perform a large number of computations typically needed by scientific applications.
+
+Seymour Cray is often credited as the "father of supercomputing" and regarded as a pioneer of supercomputing.
+
+#### I/O
+The first personal computers were quite simple, with little or no graphics capability and no pointing devices.
+
+The computer that inspired many of the concepts that characterize the modern desktop machines was the Xerox Alto.
+
+Among the technologies incorporated in the Alto were:
+- A bit-mapped graphics display integrated with a computer (earlier graphics displays acted as terminals, usually connected to larger computers)
+ - A mouse, which was invented earlier, but included on every Alto and used extensively in the user interface
+- A local area network (LAN), which became the precursor to the Ethernet
+- A user interface based on Windows and featuring a WYSIWYG (what you see is what you get) editor and interactive drawing programs
+
+### Measuring Performance
+
+ENIAC was to be 1000 times faster than the Harvard Mark-I, and the IBM Stretch (7030) was to be 100 times faster than the fastest computer then in existence. 
+
+What wasn't clear, though, was how this performance was to be measured.
+
+The original measure of performance was the time required to perform an individual operation
+- As the execution times of instructions in a computer became more diverse, however, the time required for one operation was no longer useful for comparisons
+
+To consider these differences, an instruction mix was calculated by measuring the relative frequency of instructions in a computer across many programs. Multiplying the time for each instruction by its weight in the mix gave the user the average instruction execution time. (If measured in clock cycles, average instruction execution time is the same as average CPI.) 
+
+Since instruction sets were similar, this was a more precise comparison than add times. From average instruction execution time, then, it was only a small step to MIPS. MIPS had the virtue of being easy to understand; hence, it grew in popularity.
 
 
 
