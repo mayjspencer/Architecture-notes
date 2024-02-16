@@ -139,7 +139,7 @@ In MIPS assembly language, registers <strong>$s0 to $s7</strong> map onto regist
 
 A MIPS instruction is made like this in 32 bits:
 
-![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/MIPS.png?raw=true)
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/IType.png?raw=true)
 
 Here is the meaning of each name of the fields in MIPS instructions:
 
