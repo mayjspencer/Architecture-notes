@@ -76,7 +76,7 @@ The format of the load instruction is the name of the operation followed by the 
 
 The actual MIPS name for this instruction is lw, standing for load word.
 
-In an lw instruction, a base address is the starting address of an array in memory, a base register is a register that holds an array's base address, and an offset is a constant value added to a base address to locate a particular array element.
+In an lw instruction, a <strong>base address</strong> is the starting address of an array in memory, a <strong>base register</strong> is a register that holds an array's base address, and an <strong>offset</strong> is a constant value added to a base address to locate a particular array element.
 .
 
 .
