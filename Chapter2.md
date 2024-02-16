@@ -125,8 +125,30 @@ Two's complement does have one negative number, −2,147,483,648, that has no co
 
 <strong>Overflow</strong> occurs when the leftmost retained bit of the binary bit pattern is not the same as the infinite number of digits to the left (the sign bit is incorrect): a 0 on the left of the bit pattern when the number is negative or a 1 when the number is positive.
 
+## 2.5 Representing Instructions in the Computer
 
+Since registers are referred to in instructions, there must be a convention to map register names into numbers. 
 
+In MIPS assembly language, registers <strong>$s0 to $s7</strong> map onto registers 16 to 23, and registers <strong>$t0 to $t7</strong> map onto registers 8 to 15.
+
+#### Instruction format
+- a form of representation of an instruction composed of fields of binary numbers.
+- all MIPS instructions are 32 bits long.
+
+#### MIPS Instruction Breakdown
+
+A MIPS instruction is made like this in 32 bits:
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/MIPS.png?raw=true)
+
+Here is the meaning of each name of the fields in MIPS instructions:
+
+op : Basic operation of the instruction, traditionally called the opcode.
+rs: The first register source operand.
+rt: The second register source operand.
+rd: The register destination operand. It gets the result of the operation.
+shamt: Shift amount. (COD Section 2.6 (Logical operations) explains shift instructions and this term; it will not be used until then, and hence the field contains zero in this section.)
+funct: Function. This field, often called the function code, selects the specific variant of the operation in the op field.
 
 
 
