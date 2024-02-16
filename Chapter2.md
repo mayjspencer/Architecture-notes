@@ -139,7 +139,7 @@ In MIPS assembly language, registers <strong>$s0 to $s7</strong> map onto regist
 
 A MIPS instruction is made like this in 32 bits:
 
-![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/MIPS.png?raw=true)
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/Rtype.png?raw=true)
 
 Here is the meaning of each name of the fields in MIPS instructions:
 
@@ -171,7 +171,7 @@ Function. This field, often called the function code, selects the specific varia
 ### I-Type Instruction Breakdown
 Used by the immediate and data transfer instructions.
 
-![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/MIPS.png?raw=true)
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/IType.png?raw=true)
 
 
 
