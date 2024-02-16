@@ -70,6 +70,13 @@ To access a word in memory, the instruction must supply the memory address.
 Memory is just a large, single-dimensional array, with the address acting as the index to that array, starting at 0. 
 
 For example, in the figure below, the address of the third data element is 2, and the value of Memory [2] is 10.
+
+### Load
+The format of the load instruction is the name of the operation followed by the register to be loaded, then a constant and register used to access memory. 
+
+The actual MIPS name for this instruction is lw, standing for load word.
+
+In an lw instruction, a base address is the starting address of an array in memory, a base register is a register that holds an array's base address, and an offset is a constant value added to a base address to locate a particular array element.
 .
 
 .
