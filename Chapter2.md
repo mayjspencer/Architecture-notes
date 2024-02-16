@@ -77,6 +77,59 @@ The format of the load instruction is the name of the operation followed by the 
 The actual MIPS name for this instruction is lw, standing for load word.
 
 In an lw instruction, a <strong>base address</strong> is the starting address of an array in memory, a <strong>base register</strong> is a register that holds an array's base address, and an <strong>offset</strong> is a constant value added to a base address to locate a particular array element.
+
+In MIPS, words must start at addresses that are multiples of 4. This requirement is called an alignment restriction, and many architectures have it. 
+
+### Store
+Copies data from a register to memory.
+
+The format of a store is: the name of the operation, followed by the register to be stored, then offset to select the array element, and finally the base register. 
+
+The MIPS address is specified in part by a constant and in part by the contents of a register. 
+
+The actual MIPS name is sw, standing for store word.
+
+### When #variables > #registers
+Many programs have more variables than computers have registers. 
+
+Consequently, the compiler tries to keep the most frequently used variables in registers and places the rest in memory, using loads and stores to move variables between registers and memory. 
+
+The process of putting less commonly used variables (or those needed later) into memory is called _spilling registers_.
+
+Data is more useful when in a register.
+
+### Immediate Operands
+
+addi $s3, $s3, 4 
+
+## 2.4 Signed and Unsigned Numbers
+
+#### Binary digit
+- Also called a bit. One of the two numbers in base 2 (0 or 1) that are the components of information.
+
+#### Least significant bit
+- The rightmost bit in a MIPS word.
+
+#### Most significant bit
+- The leftmost bit in a MIPS word.
+
+#### Overflow
+ - when the results of an operation are larger than can be represented in a register.
+
+### Signed Numbers
+
+#### Two's complement
+ - A signed number representation where a leading 0 indicates a positive number and a leading 1 indicates a negative number. The complement of a value is obtained by complementing each bit (0 → 1 or 1 → 0), and then adding one to the result (explained further below).
+
+Two's complement does have one negative number, −2,147,483,648, that has no corresponding positive number.
+
+<strong>Overflow</strong> occurs when the leftmost retained bit of the binary bit pattern is not the same as the infinite number of digits to the left (the sign bit is incorrect): a 0 on the left of the bit pattern when the number is negative or a 1 when the number is positive.
+
+
+
+
+
+
 .
 
 .
