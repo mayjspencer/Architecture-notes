@@ -173,6 +173,24 @@ Used by the immediate and data transfer instructions.
 
 ![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/IType.png?raw=true)
 
+The 16-bit address means a load word instruction can load any word within a region of ±215 or 32,768 bytes (±213 or 8192 words) of the address in the base register rs. 
+
+Similarly, add immediate is limited to constants no larger than ±215. 
+
+### Example
+
+lw   $t0, 32($s3)   # Temporary reg $t0 gets A[8]
+
+19 (for $s3) is placed in the rs field
+
+8 (for $t0) is placed in the rt field
+
+32 is placed in the address field
+
+Note that the meaning of the rt field has changed for this instruction: in a load word instruction, the rt field specifies the destination register, which receives the result of the load. 
+
+A destination register is a register that receives the result of an operation.
+
 
 
 .
