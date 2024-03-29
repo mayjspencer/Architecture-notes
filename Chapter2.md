@@ -28,21 +28,23 @@ The MIPS assembly language notation:
 
 Each MIPS arithmetic instruction performs only one operation and must always have exactly three variables. 
 - For example, suppose we want to place the sum of four variables b, c, d, and e into variable a.
+~~~
 
   add a, b, c   # The sum of b and c is placed in a
   
   add a, a, d   # The sum of b, c, and d is now in a
   
   add a, a, e   # The sum of b, c, d, and e is now in a
+~~~
 
 <strong> sub a, b, c </strong>computes b - c and puts the result in a.
 
 ### Storage in MIPS
 
 #### MIPS has 32 registers
-
+~~~
 $s0..$s7  |  $t0..$t9  |  $zero  |  $a0..$a3  |  $v0..$v1  |  $gp  |  $fp  |  $sp  |  $ra  |  $at
-
+~~~
 Fast locations for data. In MIPS, data must be in registers to perform arithmetic, register $zero always equals 0, and register $at is reserved by the assembler to handle large constants.
 
 #### MIPS has 230 memory words	
@@ -99,8 +101,9 @@ The process of putting less commonly used variables (or those needed later) into
 Data is more useful when in a register.
 
 ### Immediate Operands
-
+~~~
 addi $s3, $s3, 4 
+~~~
 
 ## 2.4 Signed and Unsigned Numbers
 
@@ -178,9 +181,9 @@ The 16-bit address means a load word instruction can load any word within a regi
 Similarly, add immediate is limited to constants no larger than ±215. 
 
 ### Example
-
+~~~
 lw   $t0, 32($s3)   # Temporary reg $t0 gets A[8]
-
+~~~
 19 (for $s3) is placed in the rs field
 
 8 (for $t0) is placed in the rt field
@@ -191,7 +194,162 @@ Note that the meaning of the rt field has changed for this instruction: in a loa
 
 A destination register is a register that receives the result of an operation.
 
+## 2.6 Logical Operators
 
+### Shift Left / Right
+
+Java Operator: << / >>
+
+MIPS Instructions: sll / srl
+
+#### Example: Shift Left by 4
+
+Instruction: sll $t2, $s0, 4
+- A shift moves bits left or right. This instruction moves the bits over by 4 places. The leftmost 4 bits are discarded, and 4 0's are shifted into the rightmost 4 bits.
+- This instruction would shift $s0's value and store the result in $t2.
+
+Note: Shifting Left by n = mulitplying by 2^n
+- Example: Left shift by 2 = multiplying by 16
+
+Note: Shifting Right by n = dividing by 2^n
+- Example: Right shift by 2 = dividing by 16
+
+### SHAMT Field
+
+The shamt field in the R-format is used in shift instructions. It stands for shift amount.
+
+### AND 
+A logical bit- by-bit operation with two operands that calculates a 1 only if there is a 1 in both operands.
+
+AND can apply a bit pattern to a set of bits to force 0s where there is a 0 in the bit pattern. Such a bit pattern in conjunction with AND is traditionally called a mask, since the mask "conceals" some bits.
+~~~
+and $t0, $t1, $t2
+~~~
+
+### OR
+A bit-by-bit operation that places a 1 in the result if either operand bit is a 1.
+~~~
+or $t0, $t1, $t2
+~~~
+
+### NOT 
+A logical bit-by-bit operation with one operand that inverts the bits; that is, it replaces every 1 with a 0, and every 0 with a 1.
+
+### NOR
+A logical bit-by-bit operation with two operands that calculates the NOT of the OR of the two operands. That is, it calculates a 1 only if there is a 0 in both operands.
+
+~~~
+nor $t0, $t1, $t3
+~~~
+
+## 2.7 Making Decisions
+
+### Conditional Branches
+An instruction that requires the comparison of two values and that allows for a subsequent transfer of control to a new address in the program based on the outcome of the comparison.
+
+### BEQ 
+~~~
+beq register1, register2, L1
+~~~
+
+This instruction means go to the statement labeled L1 if the value in register1 equals the value in register2. The mnemonic beq stands for branch if equal. 
+
+### BNE
+~~~
+bne register1, register2, L1
+~~~
+
+It means go to the statement labeled L1 if the value in register1 does not equal the value in register2. The mnemonic bne stands for branch if not equal. 
+
+### Unconditional Branches
+An unconditional branch is an instruction that always follows the branch, as in the "j" instruction
+
+### J
+~~~
+~~
+~~
+j EXIT
+~~
+EXIT:
+~~~
+
+### While Loop
+~~~
+Loop: bne $s0, $s1, Exit
+Loop body
+j Loop
+Exit:
+~~~
+
+### For Loop
+Given: for (i = 1; i < j; ++i) { loop body } where i is $s0, j is $s1.
+
+~~~
+Loop: slt   $t3, $s0, $s1
+      beq $t3, $zero, Exit
+      # Loop body
+      j Loop
+~~~
+
+Basic block: A sequence of instructions without branches (except possibly at the end) and without branch targets or branch labels (except possibly at the beginning).
+
+### SLT - Set on Less Than
+Compares two registers and sets a third register to 1 if the first is less than the second; otherwise, it is set to 0.
+
+#### SLT
+~~~
+slt  $t0, $s3, $s4   // $t0 = 1 if $s3 < $s4
+~~~
+#### SLTI
+~~~
+slti $t0, $s2, 10    // $t0 = 1 if $s2 < 10
+~~~
+
+MIPS offers two versions of the set on less than comparison to handle unsigned/signed. Set on less than (slt) and set on less than immediate (slti) work with signed integers. Unsigned integers are compared using set on less than unsigned (sltu) and set on less than immediate unsigned (sltiu).
+
+### Comparisons
+MIPS compilers use the slt, slti, beq, bne, and the fixed value of 0 (always available by reading register $zero) to create all relative conditions: equal, not equal, less than, less than or equal, greater than, greater than or equal.
+
+## 2.8 Procedures / Functions in Hardware
+
+Procedure: A stored subroutine that performs a specific task based on the parameters with which it is provided.
+
+### Procedure Registers
+MIPS uses these registers for procedure use:
+~~~
+$a0 - $a3: four argument registers in which to pass parameters
+~~~
+~~~
+$v0 - $v1: two value registers in which to return values
+~~~
+~~~
+$ra: one return address register to return to the point of origin
+~~~
+
+### jal
+In addition to allocating these registers, MIPS assembly language includes an instruction just for the procedures: it jumps to an address and simultaneously saves the address of the following instruction in register $ra. The jump-and-link instruction (jal) is simply written
+~~~
+jal ProcedureAddress
+~~~
+jump-and-link instruction: An instruction that jumps to an address and simultaneously saves the address of the following instruction in a register ($ra in MIPS).
+
+The link portion of the name means that an address or link is formed that points to the calling site to allow the procedure to return to the proper address. This "link", stored in register $ra (register 31), is called the return address. The return address is needed because the same procedure could be called from several parts of the program.
+
+### jr
+To support such situations, computers like MIPS use jump register instruction (jr), introduced above to help with case statements, meaning an unconditional jump to the address specified in a register:
+~~~
+jr $ra
+~~~
+The jump register instruction jumps to the address stored in register $ra—which is just what we want. Thus, the calling program, or caller, puts the parameter values in $a0 - $a3 and uses jal X to jump to procedure X (sometimes named the callee). The callee then performs the calculations, places the results in $v0 and $v1, and returns control to the caller using jr $ra.
+
+### Program Counter
+Implicit in the stored-program idea is the need to have a register to hold the address of the current instruction being executed. 
+
+For historical reasons, this register is almost always called the program counter, abbreviated PC in the MIPS architecture.
+
+The jal instruction actually saves PC + 4 in register $ra to link to the following instruction to set up the procedure return.
+
+jal sets $ra with the address of the next instruction, which is 4 more than 1000, so that the procedure will know where to return.
 
 .
 
