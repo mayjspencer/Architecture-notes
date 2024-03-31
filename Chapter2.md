@@ -351,6 +351,81 @@ The jal instruction actually saves PC + 4 in register $ra to link to the followi
 
 jal sets $ra with the address of the next instruction, which is 4 more than 1000, so that the procedure will know where to return.
 
+### Using more registers
+
+Sometimes, the procedure may need more registers than the 4 arguement and 2 return registers. We need to spill registers to memory. 
+
+The ideal data structure for spilling registers is a stack—a last-in-first-out queue.
+
+A stack needs a pointer to the most recently allocated address in the stack to show where the next procedure should place the registers to be spilled or where old register values are found. The stack pointer is adjusted by one word for each register that is saved or restored. MIPS software reserves register 29 for the stack pointer, giving it the obvious name $sp.
+
+By historical precedent, stacks "grow" from higher addresses to lower addresses. This convention means that you push values onto the stack by subtracting from the stack pointer. Adding to the stack pointer shrinks the stack, thereby popping values off the stack.
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ss.png?raw=true)
+
+
+In the previous example, we used temporary registers and assumed their old values must be saved and restored. To avoid saving and restoring a register whose value is never used, which might happen with a temporary register, MIPS software separates 18 of the registers into two groups:
+
+$t0 - $t9: temporary registers that are not preserved by the callee (called procedure) on a procedure call
+
+$s0 - $s7: saved registers that must be preserved on a procedure call (if used, the callee saves and restores them)
+
+This simple convention reduces register spilling. In the example above, since the caller does not expect registers $t0 and $t1 to be preserved across a procedure call, we can drop two stores and two loads from the code. We still must save and restore $s0, since the callee must assume that the caller needs its value.
+
+### Nested Procedures
+
+Procedures that do not call others are called leaf procedures
+
+Some procedures call other procedures, leading them to both want to use the same argument registers and return address register $ra. 
+
+One solution is pushing everything to memory when calling a child function. 
+
+The caller pushes any argument registers ($a0 - $a3) or temporary registers ($t0 - $t9) that are needed after the call. The callee pushes the return address register $ra and any saved registers ($s0 - $s7) used by the callee.
+
+Global pointer: The register that is reserved to point to the static area.
+
+<strong>Preserving</strong>: guaranteeing that the caller will get the same data back on a load from the stack as it stored onto the stack.
+
+#### Preserved Across a Procedure Call
+- Saved registers: $s0-$s7
+- Stack pointer register: $sp
+- Return address register: $ra
+- Stack above the stack pointer
+
+#### Not Preserved
+- Temporary registers: $t0-$t9
+- Argument registers: $а0-$а3
+- Return value registers: $v0-$v1
+- Stack below the stack pointer
+
+The stack above $sp is preserved simply by making sure the callee does not write above $sp; $sp is itself preserved by the callee adding exactly the same amount that was subtracted from it; and the other registers are preserved by saving them on the stack (if they are used) and restoring them from there.
+
+<strong>Procedure frame</strong>: Also called activation record. The segment of the stack containing a procedure's saved registers and local variables.
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ss1.png?raw=true)
+
+<strong>Frame pointer</strong>: A value denoting the location of the saved registers and local variables for a given procedure.
+
+### Allowing space for new data on the heap
+In addition to automatic variables that are local to procedures, C programmers need space in memory for static variables and for dynamic data structures.
+
+The stack starts in the high end of memory and grows down. The first part of the low end of memory is reserved, followed by the home of the MIPS machine code, traditionally called the text segment. Above the code is the static data segment, which is the place for constants and other static variables.
+
+Although arrays tend to be a fixed length and thus are a good match to the static data segment, data structures like linked lists tend to grow and shrink during their lifetimes. The segment for such data structures is traditionally called the heap, and it is placed next in memory.
+
+Note that this allocation allows the stack and heap to grow toward each other, thereby allowing the efficient use of memory as the two segments wax and wane.
+
+This convention is another example of making the common case fast: most procedures can be satisfied with up to 4 arguments, 2 registers for a return value, 8 saved registers, and 10 temporary registers without ever going to memory.
+
+### C vs Java
+
+C allocates and frees space on the heap with explicit functions. malloc() allocates space on the heap and returns a pointer to it, and free() releases space on the heap to which the pointer points. Memory allocation is controlled by programs in C, and it is the source of many common and difficult bugs. Forgetting to free space leads to a "memory leak", which eventually uses up so much memory that the operating system may crash. Freeing space too early leads to "dangling pointers", which can cause pointers to point to things that the program never intended.
+
+Java uses automatic memory allocation and garbage collection primarily to avoid such bugs.
+
+## 2.9 Communicating with People
+
+
 .
 
 .
