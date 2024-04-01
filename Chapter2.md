@@ -423,7 +423,61 @@ C allocates and frees space on the heap with explicit functions. malloc() alloca
 
 Java uses automatic memory allocation and garbage collection primarily to avoid such bugs.
 
-## 2.9 Communicating with People
+## 2.10 MIPS for 32 bit immediates or addresses
+
+### Sometimes 16 bit immediates aren't enough
+Although constants are frequently short and fit into the 16-bit field, sometimes they are bigger. 
+
+The MIPS instruction set includes the instruction load upper immediate <strong>(lui)</strong> specifically to set the upper 16 bits of a constant in a register, allowing a subsequent instruction to specify the lower 16 bits of the constant.
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/lui.png?raw=true)
+
+This is lui and ori working to create a 32 bit integer 16 bits at a time.
+
+### Addressing in branches and jumps
+
+#### J 
+Jumps use the final MIPS instruction format, called the J-type, which consists of 6 bits for the operation field and the rest of the bits for the address field.
+
+#### Conditionals
+Unlike the jump instruction, the conditional branch instruction must specify two operands (5 bits, 10 bits total) in addition to the branch address. Thus, leaving only 16 bits for the branch address: 6, 5, 5, 16, = 32
+
+To get more than 2^16 addresses available: MIPS uses <strong>PC-relative addressing</strong>: An addressing regime in which the address is the sum of the program counter (PC) and a constant in the instruction.
+
+## 2.11 Paralellism
+
+Parallel Execution makes things faster but must be done in sync. 
+
+To know when a task is finished writing so that it is safe for another to read, the tasks need to synchronize.
+
+If they don't synchronize, there is a danger of a data race, where the results of the program can change depending on how events happen to occur.
+
+<strong>Data race</strong>: Two memory accesses form a data race if they are from different threads to same location, at least one is a write, and they occur one after another.
+
+### Locks
+Lock and unlock can be used straightforwardly to create regions where only a single processor can operate, called a mutual exclusion (mutex).
+
+A memory location must have atomic read/write: you can't do both at once.
+
+One typical operation for building synchronization operations is the <strong>atomic exchange or atomic swap</strong>, which interchanges a value in a register for a value in memory.
+
+To see how to use this to build this, we build a  lock where 0 is used to indicate that the lock is free and 1 is used to indicate that the lock is unavailable. A processor tries to set the lock by doing an exchange of 1, which is in a register, with the memory address corresponding to the lock. The value returned from the exchange instruction is 1 (unavailable) if some other processor had already claimed access, and 0 (free) otherwise. In the latter case, the value is also changed to 1 (unavailable), preventing any competing exchange in another processor from also retrieving a 0 (free).
+
+In MIPS this pair of instructions includes a special load called a load linked and a special store called a store conditional. These instructions are used in sequence: if the contents of the memory location specified by the load linked are changed before the store conditional to the same address occurs, then the store conditional fails
+
+The store conditional is defined to both store the value of a (presumably different) register in memory and to change the value of that register to a 1 if it succeeds and to a 0 if it fails. Since the load linked returns the initial value, and the store conditional returns 1 only if it succeeds, the following sequence implements an atomic exchange on the memory location specified by the contents of $s1:
+
+~~~
+again: add  $t0, $zero, $s4    #copy locked value
+       ll   $t1, 0($s1)        #load linked
+       sc   $t0, 0($s1)        #store conditional
+       beq  $t0, $zero, again  #branch if store fails
+       add  $s4, $zero, $t1    #put load value in $s4
+~~~
+
+Any time a processor intervenes and modifies the value in memory between the ll and sc instructions, the sc returns 0 in $t0, causing the code sequence to try again. At the end of this sequence the contents of $s4 and the memory location specified by $s1 have been atomically exchanged.
+
+## 2.12 Starting a Program
 
 
 .
