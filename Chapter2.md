@@ -478,8 +478,26 @@ again: add  $t0, $zero, $s4    #copy locked value
 Any time a processor intervenes and modifies the value in memory between the ll and sc instructions, the sc returns 0 in $t0, causing the code sequence to try again. At the end of this sequence the contents of $s4 and the memory location specified by $s1 have been atomically exchanged.
 
 ## 2.12 Starting a Program
+This section describes the four steps in transforming a C program in nonvolatile storage into a program running on a computer.
 
+1. A <strong>compiler</strong> converts a high-level language program, like a C program, to an assembly language program.
+2. An <strong>assembler</strong> converts an assembly language program to an object module in machine language.
+3. A <strong>linker</strong> combines multiple object modules, such as library routines, into an executable machine language program.
+4. Finally, a <strong>loader</strong> places the executable file into memory, to be run by the computer.
 
+### Compiler
+The compiler transforms the C program into an assembly language program, a symbolic form of what the machine understands.
+
+### Assembler
+Assembly language uses instructions that are converted into machine code by an assembler. Assemblers can also interpret common variations of instructions, known as pseudoinstructions, simplifying programming. For example, the MIPS assembler treats the instruction `move $t0, $t1` as `add $t0, $zero, $t1`.
+
+Pseudoinstructions in MIPS include `blt`, `bgt`, `bge`, and `ble`, which are converted into `slt` and `bne` instructions. MIPS assemblers also allow loading 32-bit constants into registers, exceeding the 16-bit immediate instructions limit.
+
+Assemblers can accept numbers in different bases, such as hexadecimal in MIPS. The main task of an assembler is to convert assembly language programs into object files, which contain machine language instructions, data, and necessary information for memory placement.
+
+Object files in UNIX typically consist of a header, text segment (machine code), static data segment, relocation information, symbol table, and debugging information. The symbol table matches labels with memory addresses.
+
+Overall, pseudoinstructions and other assembler features simplify assembly programming, but understanding the underlying architecture is essential for optimal performance.
 .
 
 .
