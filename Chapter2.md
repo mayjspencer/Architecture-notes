@@ -498,6 +498,72 @@ Assemblers can accept numbers in different bases, such as hexadecimal in MIPS. T
 Object files in UNIX typically consist of a header, text segment (machine code), static data segment, relocation information, symbol table, and debugging information. The symbol table matches labels with memory addresses.
 
 Overall, pseudoinstructions and other assembler features simplify assembly programming, but understanding the underlying architecture is essential for optimal performance.
+
+### Linker
+What we have presented so far suggests that a single change to one line of one procedure requires compiling and assembling the whole program.
+
+An alternative to rerunning the entire program is to only rerun the procedure where the change happened. This alternative requires a new systems program, called a link editor or linker, which takes all the independently assembled machine language programs and "stitches" them together.
+
+<strong>Linker</strong>: A program that takes independently assembled machine language programs and combines them into an executable file. 
+
+#### It performs three main tasks:
+
+Symbolic Placement: It places code and data modules in memory symbolically.
+Address Resolution: It determines the addresses of labels in the code and data.
+Patching: It updates internal and external references in the code.
+
+The linker uses information from each module's relocation information and symbol table to resolve undefined labels. It then determines the memory locations for each module, considering the MIPS convention for memory allocation.
+
+The output of the linker is an executable file that can be run on a computer. This file has the same format as an object file but contains no unresolved references. Partially linked files, like library routines, may still have unresolved addresses and remain as object files.
+
+### Loader
+Now that the executable file is on disk, the operating system reads it to memory and starts it. The loader follows these steps in UNIX systems:
+
+1. Reads the executable file header to determine size of the text and data segments.
+2. Creates an address space large enough for the text and data.
+3. Copies the instructions and data from the executable file into memory.
+4. Copies the parameters (if any) to the main program onto the stack.
+5. Initializes the machine registers and sets the stack pointer to the first free location.
+6. Jumps to a start-up routine that copies the parameters into the argument registers and calls the main routine of the program. When the main routine returns, the start-up routine terminates the program with an exit system call..
+
+### Dynamically Linked Libraries
+Dynamically linked libraries (DLLs) are a way to link library routines to a program during its execution, rather than at compile time. 
+This approach has several advantages over static linking:
+
+- Updates: With DLLs, programs can use updated versions of libraries without needing to recompile. This allows for bug fixes and support for new hardware devices.
+- Efficiency: DLLs only load the library routines that are actually called during program execution, reducing the size of the executable and improving efficiency.
+- Lazy Procedure Linkage: In this approach, routines are linked only when they are called for the first time, further optimizing the loading process.
+
+The initial overhead of DLLs includes extra space for dynamic linking information and some additional processing time the first time a routine is called. However, subsequent calls incur minimal overhead.
+
+### Static Linked Libraries
+Static linking is the process of combining all the necessary library code into the executable file of a program before it is run. This means that all the code from the libraries that the program uses is included in the final executable.
+- Benefits: This makes the program self-contained and easier to distribute, as all the necessary code is included.
+- Drawbacks: However, if the libraries are updated or fixed, the program needs to be recompiled and redistributed to take advantage of these changes. Additionally, static linking can result in larger executable files.
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
 .
 
 .
