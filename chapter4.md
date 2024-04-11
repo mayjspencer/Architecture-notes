@@ -133,7 +133,28 @@ In a simplified view, the datapath can be thought of as a series of stages throu
 ### Learn Datapaths by Datapath Elements
 A reasonable way to start a datapath design is to examine the major components required to execute each class of MIPS instructions. Let's start at the top by looking at which datapath elements each instruction needs, and then work our way down through the levels of abstraction. When we show the datapath elements, we will also show their control signals.
 
-<strong>Datapath element</strong>: A datapath element is a hardware component within a processor that processes or manipulates data.<br>It typically includes components like registers, ALUs (Arithmetic Logic Units), and multiplexers, and is responsible for executing instructions according to the processor's architecture.<br>The datapath elements work together to fetch, decode, execute, and write back data as part of the instruction execution process.
+<strong>Datapath element</strong>: A datapath element is a hardware component within a processor that processes or manipulates data.
+
+It typically includes components like registers, ALUs (Arithmetic Logic Units), and multiplexers, and is responsible for executing instructions according to the processor's architecture.
+
+The datapath elements work together to fetch, decode, execute, and write back data as part of the instruction execution process.
+
+### What we need
+The first element we need: a memory unit to store the instructions of a program and supply instructions given an address.
+
+The program counter (PC), is a register that holds the address of the current instruction. 
+
+Lastly, we will need an adder to increment the PC to the address of the next instruction. This adder, which is combinational, can be built from the ALU simply by wiring the control lines so that the control always specifies an add operation. We will draw such an ALU with the label Add to indicate that it has been permanently made an adder and cannot perform the other ALU functions.
+
+### Why we need them
+
+1. **Instruction Memory (IM)**: Instructions need to be stored somewhere in the processor's memory so that they can be fetched and executed. The IM provides a way to access instructions based on the address provided by the PC.
+
+2. **Program Counter (PC)**: The PC keeps track of the address of the next instruction to be executed. After fetching an instruction, the processor needs to know where to find the next instruction in memory. The PC is updated to point to the next instruction, typically by incrementing its value.
+
+3. **Adder**: The adder is used to increment the PC value to point to the next instruction. Since instructions in MIPS are typically 4 bytes long and stored sequentially in memory, adding 4 to the current PC value gives the address of the next instruction.
+
+Together, these elements form the basic fetch-execute cycle of a processor, where instructions are fetched from memory using the PC, the PC is updated to point to the next instruction, and the fetched instruction is executed.
 
 
 
