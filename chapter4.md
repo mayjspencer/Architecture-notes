@@ -50,7 +50,50 @@ After using the ALU, the actions required to complete various instruction classe
 The text also mentions that this basic design is a foundation for more complex implementations, where instructions may take multiple clock cycles and where pipelining is used to improve performance.
 
 
-.
+## 4.2 Logic Design Conventions
+
+### Combinational vs Sequential
+
+- **Combinational Elements**: These elements operate on data values and produce outputs based solely on their current inputs. The ALU is an example of a combinational element because it produces the same output for the same set of inputs and has no internal storage.
+
+- **State Elements**: These elements contain internal storage and are not solely dependent on their inputs. Examples include registers, memories, and flip-flops. State elements retain their values even when the power is turned off and completely characterize the computer's state.
+
+- **Inputs and Outputs of State Elements**: State elements have at least two inputs (data value to be written and clock signal) and one output (the value that was written in an earlier clock cycle). The clock signal determines when the data value should be written into the state element.
+
+- **Sequential Logic**: Components that contain state are also known as sequential logic elements because their outputs depend on both their inputs and the internal state. For example, the output from a register depends on both the data value supplied to it and on what was written into the register previously.
+
+### Clocking Methodology
+
+- **Clocking Methodology**: It defines when signals can be read and when they can be written, ensuring hardware predictability. It specifies the timing of reads and writes to avoid conflicts that could lead to unpredictable behavior.
+
+- **Edge-Triggered Clocking**: This methodology updates values in sequential logic elements only on a clock edge, which is a quick transition from low to high or vice versa. Combinational logic must have inputs from and outputs to state elements, ensuring that outputs are stable and valid for the next clock cycle.
+
+- **Inputs and Outputs in Edge-Triggered Clocking**: Inputs to combinational logic are values stored in state elements from the previous clock cycle. Outputs from combinational logic are written into state elements and become stable and valid for the following clock cycle.
+
+- **Importance of Clocking Methodology**: Clocking methodologies, like edge-triggered clocking, are crucial for maintaining the integrity and predictability of data flow within a computer system. They ensure that data is read and written at the appropriate times, preventing conflicts and ensuring correct operation of the hardware.
+
+### Clock Cycle Walkthrough
+To explain and summarize:
+
+- **First Rising Clock Edge**: Both state elements are written with new values on this edge. This means that any data stored in these elements is updated based on the inputs they receive.
+
+- **Propagation of Values**: When a new value is written into state element 1, it triggers a series of calculations or operations in the combinational logic. This means that the combinational logic processes the input it receives from state element 1 and produces an output based on this input. This output is then passed to state element 2.
+
+- **Combinational Logic and Memory**: Combinational logic does not have any memory. This means that its output at any given moment is solely determined by its current input. It doesn't "remember" past inputs or outputs; each output is a direct result of the current input.
+
+- **Stable Values**: For the system to work correctly, the new value computed by the combinational logic must be stable before it enters state element 2. A value is considered stable when it has settled and no longer changes. This ensures that when the new value is latched into state element 2 on the next rising clock edge, it is a reliable and accurate representation of the output from the combinational logic.
+
+- **Timing Considerations**: The new value computed by the combinational logic must be stable and ready to enter state element 2 well before the next rising clock edge. This is crucial for ensuring that the updated data is available and stable for the next clock cycle.
+
+- **Clock Cycle Length**: The time required for signals to propagate from state element 1, through the combinational logic, and to state element 2 defines the length of the clock cycle. This length determines the speed at which the computer can operate reliably.
+
+**Notes:**
+
+- On the first rising clock edge, both state elements are written with new values.
+- New values propagate through the combinational logic.
+- The new value computed by the combinational logic must be stable and ready to enter the next state element before the next rising clock edge.
+- The time for signals to propagate from one state element to another defines the length of the clock cycle, which determines the computer's operating speed.
+
 
 .
 
