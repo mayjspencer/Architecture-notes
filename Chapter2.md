@@ -596,31 +596,6 @@ Since we are not using saved registers in this leaf procedure, there is nothing 
 jr $ra
 ~~~
 
-### Example 2: 
-
-Bubble Sort
-~~~
-void sort (int v[], int n)
-{
-    int i, j;
-    for (i = 0; i < n; i += 1) {
-        for (j = i - 1; j >= 0 && v[j] > v[j + 1]; j -= 1) {
-            swap(v, j); 
-        }
-    } 
-}
-~~~
-1. The two parameters of the procedure sort, v and n, are in the parameter registers $a0 and $a1, and we assign register $s0 to i and register $s1 to j.
-2. Code body
-First for loop:
-
-It takes just one instruction to initialize i to 0, the first part of the for statement:
-~~~
-move $s0, $zero          # i = 0
-~~~
-
-4. 
-
 
 
 
