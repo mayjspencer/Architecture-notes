@@ -542,8 +542,59 @@ Static linking is the process of combining all the necessary library code into t
 - Drawbacks: However, if the libraries are updated or fixed, the program needs to be recompiled and redistributed to take advantage of these changes. Additionally, static linking can result in larger executable files.
 
 
+## 2.13 Translating C to MIPS
 
+Example 1:
 
+~~~
+void swap(int v[], int k)
+{
+    int temp;
+    temp = v[k];
+    v[k] = v[k+1];
+    v[k+1] = temp;
+}
+~~~
+
+When translating from C to assembly language by hand, we follow these general steps:
+
+1. Allocate registers to program variables.
+2. Produce code for the body of the procedure.
+3. Preserve registers across the procedure invocation.
+
+Steps: 
+1. The MIPS convention on parameter passing is to use registers  $a0, $a1, $a2, and $a3.
+Since swap has just two parameters, v and k, they will be found in registers $a0 and $a1.
+
+The only other variable is temp, which we associate with register $t0 since swap is a leaf procedure.
+
+2. Body of code
+To get v[k] we have to first get k and then add v (v is just a starting addess of a section of memory).
+
+This MIPS code will first get the actual memory value of k: (k*4) and add it to v and store the address v[k] in temp $t1
+~~~
+sll   $t1, $a1, 2     # reg $t1 = k * 4
+add   $t1, $a0, $t1   # reg $t1 = v + (k * 4)
+                      # reg $t1 has the address of v[k]
+~~~
+
+Now we can use that address stored in $t1 to access v[k] and v[k+1] in memory - loading them into temp registers.
+~~~
+lw    $t0, 0($t1)     # reg $t0 (temp) = v[k]
+lw    $t2, 4($t1)     # reg $t2 = v[k + 1]
+                      # refers to next element of v
+~~~
+
+Now we store them back, but in swapped locations:
+~~~
+sw    $t2, 0($t1)     # v[k] = reg $t2
+sw    $t0, 4($t1)     # v[k + 1] = reg $t0 (temp)
+~~~
+
+Since we are not using saved registers in this leaf procedure, there is nothing to preserve.
+~~~
+jr $ra
+~~~
 
 
 
