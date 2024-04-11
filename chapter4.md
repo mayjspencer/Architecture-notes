@@ -87,12 +87,23 @@ To explain and summarize:
 
 - **Clock Cycle Length**: The time required for signals to propagate from state element 1, through the combinational logic, and to state element 2 defines the length of the clock cycle. This length determines the speed at which the computer can operate reliably.
 
-**Notes:**
+### Control Signals and Definitions
 
-- On the first rising clock edge, both state elements are written with new values.
-- New values propagate through the combinational logic.
-- The new value computed by the combinational logic must be stable and ready to enter the next state element before the next rising clock edge.
-- The time for signals to propagate from one state element to another defines the length of the clock cycle, which determines the computer's operating speed.
+1. **Write Control Signal**: In the context of updating state elements (like registers or memory) in a digital system, a write control signal is used to indicate when a new value should be written into a state element. This signal is typically synchronized with the clock signal, which determines the timing of operations in the system.
+
+2. **Clock Signal**: The clock signal is a periodic signal that oscillates between two voltage levels (usually 0 and 1) and is used to synchronize the operations of the digital system. State elements are typically updated on the rising or falling edge of the clock signal, depending on the specific design.
+
+3. **Clock Edge**: State elements are updated only when a clock edge occurs (either rising or falling edge, depending on the design). The write control signal must be asserted (logically high) at the same time as the clock edge for the update to occur.
+
+4. **Control Signal**: A control signal is a signal used in digital systems to control the operation of various components, such as multiplexors or functional units. It determines which inputs are selected or how a unit should operate.
+
+5. **Asserted and Deasserted Signals**: When a signal is asserted, it means that the signal is logically high or true. Conversely, when a signal is deasserted, it means that the signal is logically low or false.
+
+For the 32-bit MIPS architecture, most state and logic elements handle 32-bit data.<br>Buses, which are wider signals, are shown with thicker lines.<br>Sometimes, we combine buses to form a wider bus, indicated by labels on the bus lines.<br>Arrows show the direction of data flow between elements.<br>Control signals are distinguished from data signals using color.
+
+
+
+
 
 
 .
