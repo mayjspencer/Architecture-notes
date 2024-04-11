@@ -146,6 +146,8 @@ The program counter (PC), is a register that holds the address of the current in
 
 Lastly, we will need an adder to increment the PC to the address of the next instruction. This adder, which is combinational, can be built from the ALU simply by wiring the control lines so that the control always specifies an add operation. We will draw such an ALU with the label Add to indicate that it has been permanently made an adder and cannot perform the other ALU functions.
 
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ALU2.png?raw=true)
+
 ### Why we need them
 
 1. **Instruction Memory (IM)**: Instructions need to be stored somewhere in the processor's memory so that they can be fetched and executed. The IM provides a way to access instructions based on the address provided by the PC.
