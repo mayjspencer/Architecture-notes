@@ -193,9 +193,17 @@ The register file contains the register state of the computer. In addition, we w
    - Controlled with the ALU operation signal, which is 4 bits wide.
    - The Zero detection output of the ALU is used for implementing branches, while the overflow output is needed for exceptions later on.
 
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ALU3.png?raw=true)
+
 Example:
+
 - The register file always outputs the data in registers corresponding to the two input read addresses. Ex: The data (488 and 999) in registers 7 and 30 is read and output.
 - A write occurs on a rising clock edge if RegWrite is 1. Ex: Register 30's data can be overwritten with new data (665) on a rising clock edge.
+
+- Item b in the animation above shows the ALU, which takes two 32-bit inputs and produces a 32-bit result, as well as a 1-bit signal if the result is 0. There is a 4-bit control signal of the ALU
+
+
+
 
 
 
