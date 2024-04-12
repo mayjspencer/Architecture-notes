@@ -158,6 +158,45 @@ Lastly, we will need an adder to increment the PC to the address of the next ins
 
 Together, these elements form the basic fetch-execute cycle of a processor, where instructions are fetched from memory using the PC, the PC is updated to point to the next instruction, and the fetched instruction is executed.
 
+### R-Type Instructions
+
+Now let's consider the R-format instructions. They all read two registers, perform an ALU operation on the contents of the registers, and write the result to a register.
+
+We call these instructions either R-type instructions or arithmetic-logical instructions.
+
+Includes: add, sub, AND, OR, and slt, 
+
+Example: add $t1, $t2, $t3, which reads $t2 and $t3 and writes $t1.
+
+#### Register File: state element
+The processor's 32 general-purpose registers are stored in a structure called a register file.
+
+A register file is a collection of registers in which any register can be read or written by specifying the number of the register in the file. 
+
+The register file contains the register state of the computer. In addition, we will need an ALU to operate on the values read from the registers.
+
+#### How to read 2 words and write 1 (R-Type)
+   - For reading data words: Need inputs to specify the register number to be read and outputs to carry the value read from the registers.
+   - For writing data words: Need inputs to specify the register number to be written and to supply the data to be written into the register.
+
+#### Register File Operation
+   - Reading: The register file always outputs the contents of the registers corresponding to the Read register inputs.
+   - Writing: Controlled by the write control signal, which must be asserted for a write to occur at the clock edge.
+
+#### Register File Design
+   - Contains all the registers and has two read ports and one write port.
+   - Reads are straightforward, but writes must be explicitly indicated by asserting the write control signal.
+   - Writes are edge-triggered, so all write inputs must be valid at the clock edge.
+   - Inputs carrying the register number are 5 bits wide, and lines carrying data values are 32 bits wide.
+
+#### ALU Operation
+   - Controlled with the ALU operation signal, which is 4 bits wide.
+   - The Zero detection output of the ALU is used for implementing branches, while the overflow output is needed for exceptions later on.
+
+Example:
+- The register file always outputs the data in registers corresponding to the two input read addresses. Ex: The data (488 and 999) in registers 7 and 30 is read and output.
+- A write occurs on a rising clock edge if RegWrite is 1. Ex: Register 30's data can be overwritten with new data (665) on a rising clock edge.
+
 
 
 
