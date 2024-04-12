@@ -202,8 +202,31 @@ Example:
 
 - Item b in the animation above shows the ALU, which takes two 32-bit inputs and produces a 32-bit result, as well as a 1-bit signal if the result is 0. There is a 4-bit control signal of the ALU
 
+### Load and Store Word:
+Next, consider the MIPS load word and store word instructions
 
+General form: lw $t1, offset_value($t2)    OR    sw $t1, offset_value($t2).
 
+These instructions compute a memory address by adding the base register, which is $t2, to the 16-bit signed offset field contained in the instruction. 
+
+Store: the value to be stored must also be read from the register file where it resides in $t1.
+
+Load: the value read from memory must be written into the register file in the specified register, which is $t1. 
+
+Thus, we will need both the register file and the ALU from the animation above.
+
+In addition, we will need a unit to sign-extend the 16-bit offset field in the instruction to a 32-bit signed value, and a data memory unit to read from or write to. 
+
+The data memory must be written on store instructions; hence, data memory has read and write control signals, an address input, and an input for the data to be written into memory.
+
+##### The two units needed to implement loads and stores, in addition to the register file and ALU, are the data memory unit and the sign extension unit
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ALU4.png?raw=true)
+
+### The beq instruction
+The beq instruction has three operands, two registers that are compared for equality, and a 16-bit offset used to compute the branch target address relative to the branch instruction address. 
+
+General Form: beq $t1, $t2, offset
 
 
 
