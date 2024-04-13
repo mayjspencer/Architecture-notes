@@ -131,7 +131,7 @@ A datapath is a fundamental component of a computer's architecture that is respo
 In a simplified view, the datapath can be thought of as a series of stages through which data flows, with each stage performing a specific operation on the data. These stages typically include fetching instructions from memory, decoding instructions to determine the operation to be performed, reading data from registers, performing the operation using the ALU, and writing the result back to registers or memory.
 
 ### Learn Datapaths by Datapath Elements
-A reasonable way to start a datapath design is to examine the major components required to execute each class of MIPS instructions. Let's start at the top by looking at which datapath elements each instruction needs, and then work our way down through the levels of abstraction. When we show the datapath elements, we will also show their control signals.
+First, examine the major components required to execute each class of MIPS instructions. Let's start at the top by looking at which datapath elements each instruction needs.When we show the datapath elements, we will also show their control signals.
 
 <strong>Datapath element</strong>: A datapath element is a hardware component within a processor that processes or manipulates data.
 
@@ -140,7 +140,7 @@ It typically includes components like registers, ALUs (Arithmetic Logic Units), 
 The datapath elements work together to fetch, decode, execute, and write back data as part of the instruction execution process.
 
 ### What we need
-The first element we need: a memory unit to store the instructions of a program and supply instructions given an address.
+The first element we need is a memory unit to store the instructions of a program and supply instructions given an address.
 
 The program counter (PC), is a register that holds the address of the current instruction. 
 
