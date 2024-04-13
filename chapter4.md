@@ -265,7 +265,35 @@ We must compute the branch target address by adding the sign-extended offset fie
 4. **Overall Design**:
    - By carefully designing the datapath with multiplexers and control signals, it becomes capable of executing both memory-reference and arithmetic-logical instructions efficiently in a single clock cycle.
 
+## 4.4 Simple Implementation Scheme
 
+We build this simple implementation using the datapath of the last section and adding a simple control function.<br>This simple implementation covers load word (lw), store word (sw), branch equal (beq), and the arithmetic-logical instructions add, sub,  OR,, and set on less than.
+
+### ALU Control
+The ALU performs different operations based on the instruction type:
+
+- For load and store instructions, the ALU computes the memory address by addition.
+- For R-type instructions, the ALU performs one of five operations (AND, OR, subtract, add, or set on less than), determined by the funct field in the instruction.
+- For branch equal instructions, the ALU performs a subtraction.
+
+The ALU control unit generates a 4-bit signal based on the ALUOp (2 bits) and funct (6 bits) fields. ALUOp specifies the operation type (add, subtract, or determined by funct), and the funct field provides the specific operation for R-type instructions. When ALUOp is 00 or 01, the funct field is not used, so we "don't care" about its value.
+
+The ALU control inputs are set based on ALUOp and funct, ensuring the ALU performs the correct operation for each instruction.
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_9ec93286-c957-2dee-e082-680fb6a578f0_nXytqLBsHJBe31G6EdrE.png)
+
+#### Truth Table
+To map the 2-bit ALUOp field and the 6-bit funct field to the four ALU operation control bits, we can use a small piece of logic that recognizes the subset of possible values and sets the ALU control bits accordingly. 
+
+The truth table shows only the entries where the ALU control must have a specific value, as we "don't care" about the value for many other combinations.
+
+The inputs are the ALUOp and function code field. Only the entries for which the ALU control is asserted are shown. Some don't-care entries have been added.
+
+For example, the ALUOp does not use the encoding 11, so the truth table can contain entries 1X and X1, rather than 10 and 01.
+
+Note that when the function field is used, the first 2 bits (F5 and F4) of these instructions are always 10, so they are don't-care terms and are replaced with XX in the truth table.
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_56a595e8-ed99-9154-aa6d-7833dde1c673_nXytqLBsHJBe31G6EdrE.png)
 
 
 
