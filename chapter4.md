@@ -295,6 +295,30 @@ Note that when the function field is used, the first 2 bits (F5 and F4) of these
 
 ![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_56a595e8-ed99-9154-aa6d-7833dde1c673_nXytqLBsHJBe31G6EdrE.png)
 
+A **don't-care term** in this truth table (represented by an X in an input column) indicates that the output does not depend on the value of the input corresponding to that column. For example, when the ALUOp bits are 00, as in the first row of the figure above, we always set the ALU control to 0010, independent of the function code. In this case, then, the function code inputs will be don't cares in this line of the truth table.
+
+### Math Control Unit
+
+### Instruction Types
+The MIPS instruction set includes three main instruction classes: R-type, load-store, and branch instructions, each with its own format:
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_da9ce9a5-d726-16ed-aa82-316cb0125a62_nXytqLBsHJBe31G6EdrE.png)
+- R-type instructions: Opcode 0, with three register operands (rs, rt, rd). rs and rt are sources, and rd is the destination. The ALU function is in the funct field, decoded by the ALU control.
+- Load-store instructions: Opcodes 35 (load) and 43 (store), with base register rs added to the 16-bit address field to form the memory address. For loads, rt is the destination register; for stores, rt is the source register.
+- Branch instructions: Opcode 4, with source registers rs and rt compared for equality. The 16-bit address field is sign-extended, shifted, and added to PC + 4 to compute the branch target address.
+
+Each instruction class has specific fields that are used to connect the instruction to the datapath.
+
+Because we know where certain things will be in the instruction code, we can format our hardware to expect it that way. (Notice the instruction sections below)
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_e109c490-951b-b879-94fd-3341841ceb2c_nXytqLBsHJBe31G6EdrE.png)
+
+The figure above shows seven single-bit control lines plus the 2-bit ALUOp control signal. We have already defined how the ALUOp control signal works, and it is useful to define what the seven other control signals do informally before we determine how to set these control signals during instruction execution.
+
+### Control Signals
+When the 1-bit control to a two-way multiplexor is asserted, the multiplexor selects the input corresponding to 1. Otherwise, if the control is deasserted, the multiplexor selects the 0 input. Remember that the state elements all have the clock as an implicit input and that the clock is used in controlling writes.
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_b3321bed-e535-db5f-43eb-bc1d937a79c0_nXytqLBsHJBe31G6EdrE.png)
 
 
 .
