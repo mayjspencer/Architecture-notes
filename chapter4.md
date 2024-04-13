@@ -247,6 +247,24 @@ We must compute the branch target address by adding the sign-extended offset fie
 5. **Jump Instruction**:
    - The jump (`j`) instruction replaces the lower 28 bits of the PC with the lower 26 bits of the instruction shifted left by 2 bits.
 
+### Creating a Single Datapath
+
+![Alt text](https://github.com/mayjspencer/Architecture-notes/blob/main/ALU5.png?raw=true)
+1. **Shared Components**:
+   - Single Register File: The datapath uses a single register file to store and retrieve data. Both instruction types use this register file for operand access and result storage.
+   - Single ALU: There is a single ALU in the datapath that performs arithmetic and logical operations. Both instruction types use this ALU for computation.
+
+2. **Multiplexers**:
+   - ALU Input Selection: Since memory-reference instructions use the sign-extended offset as one of the ALU inputs, while R-type instructions use a register value, a multiplexer is placed at the ALU input to select between these two sources.
+   - Register File Data Input Selection: Similarly, a multiplexer is placed at the data input to the register file to select between the ALU result (for R-type instructions) and the memory data (for load instructions).
+
+3. **Control Signals**:
+   - Control signals are used to select the appropriate inputs for the ALU and the register file based on the instruction being executed.
+   - These control signals ensure that the datapath correctly handles both types of instructions without conflicts or errors.
+
+4. **Overall Design**:
+   - By carefully designing the datapath with multiplexers and control signals, it becomes capable of executing both memory-reference and arithmetic-logical instructions efficiently in a single clock cycle.
+
 
 
 
