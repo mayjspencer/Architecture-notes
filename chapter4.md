@@ -226,8 +226,26 @@ The data memory must be written on store instructions; hence, data memory has re
 ### The beq instruction
 The beq instruction has three operands, two registers that are compared for equality, and a 16-bit offset used to compute the branch target address relative to the branch instruction address. 
 
-General Form: beq $t1, $t2, offset
+We must compute the branch target address by adding the sign-extended offset field of the instruction to the PC.<br>The branch datapath must do two operations: compute the branch target address and compare the register contents.
 
+1. **Instruction Format**: `beq $t1, $t2, offset`
+   - `$t1` and `$t2` are the registers to compare.
+   - `offset` is a 16-bit signed immediate value, representing the branch target address relative to the address of the next instruction.
+
+2. **Branch Target Address Calculation**:
+   - The base for the branch address calculation is the address of the instruction following the branch, which is PC + 4.
+   - The offset field is shifted left by 2 bits to convert it to a word offset.
+
+3. **Branch Outcome**:
+   - If the operands in `$t1` and `$t2` are equal, the branch is taken, and the PC becomes the branch target address.
+   - If the operands are not equal, the PC is incremented as usual, and the branch is not taken.
+
+4. **Datapath for `beq` Instruction**:
+   - The datapath for `beq` includes a sign extension unit and an adder to compute the branch target address.
+   - The ALU is used to compare the register contents. The Zero output of the ALU is used to determine if the operands are equal.
+
+5. **Jump Instruction**:
+   - The jump (`j`) instruction replaces the lower 28 bits of the PC with the lower 26 bits of the instruction shifted left by 2 bits.
 
 
 
