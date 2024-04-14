@@ -320,8 +320,47 @@ When the 1-bit control to a two-way multiplexor is asserted, the multiplexor sel
 
 ![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_b3321bed-e535-db5f-43eb-bc1d937a79c0_nXytqLBsHJBe31G6EdrE.png)
 
+#### How to set Control Signals
+
+The control unit sets all control signals except PCSrc based on the opcode field of the instruction. PCSrc is determined by ANDing a signal from the control unit (Branch) with the Zero output from the ALU, used for equality comparison.
+
+The control unit takes the 6-bit opcode field as input and outputs **3** control signals for multiplexors (RegDst, ALUSrc, MemtoReg), register file and data memory operations (RegWrite, MemRead, MemWrite), **1** branch control signal (Branch), and a **2-bit** ALU control signal (ALUOp). The PCSrc signal is derived from the AND gate output of Branch and the Zero signal from the ALU, controlling the selection of the next PC.
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_33cd5179-c97a-fc3b-5511-8c1c975b3d11_nXytqLBsHJBe31G6EdrE.png)
+
+#####  The setting of the control lines is completely determined by the opcode fields of the instruction
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_47e84bab-1ba6-32d9-2cad-5619d7da2e42_nXytqLBsHJBe31G6EdrE.png)
+
+#### R-Type instructions
+- the source register fields are rs and rt, and the destination register field is rd; this defines how the signals ALUSrc and RegDst are set
+- they write a register (Reg-Write = 1), but neither reads nor writes data memory
+
+### Finalizing Control
+The control function can be  defined using the contents of topcode fields of the instruction. 
+
+The outputs are the control lines, and the input is the 6-bit opcode field, Op [5:0].
+
+#### Final Control Truth table 
+The table below shows the logic in the control unit as one large truth table that uses the opcode bits as inputs.
+
+The top six rows of the table gives the combinations of input signals that correspond to the four opcode columns that determine the control output settings.
+
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_2a595b7e-9714-610f-9421-b423f787c731_nXytqLBsHJBe31G6EdrE.png)
+
+Now, we have mastered a **single-cycle implementation**: An implementation in which an instruction is executed in one clock cycle. While easy to understand, it is too slow to be practical.
+
+### Implementing Jumps
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_73a1d141-4c3c-04a3-2bca-c08b25d121e8_nXytqLBsHJBe31G6EdrE.png)
+The jump instruction in MIPS computes the target PC differently from a branch instruction and is not conditional. The target PC is formed by concatenating the upper 4 bits of the PC of the jump instruction plus 4 with the 26-bit immediate field in the instruction and the 2 bits "00". This is done to form a 32-bit address.
+
+To accommodate the jump instruction in the datapath, an additional multiplexer is added to select the source for the new PC value, which can be the incremented PC (PC + 4), the branch target PC, or the jump target PC. A new control signal called "Jump" is used to control this and is asserted  when the opcode indicates a jump instruction (opcode = 2).
+
+
+
 
 .
+
 
 .
 
