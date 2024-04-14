@@ -351,13 +351,32 @@ The top six rows of the table gives the combinations of input signals that corre
 Now, we have mastered a **single-cycle implementation**: An implementation in which an instruction is executed in one clock cycle. While easy to understand, it is too slow to be practical.
 
 ### Implementing Jumps
+
 ![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_73a1d141-4c3c-04a3-2bca-c08b25d121e8_nXytqLBsHJBe31G6EdrE.png)
+
 The jump instruction in MIPS computes the target PC differently from a branch instruction and is not conditional. The target PC is formed by concatenating the upper 4 bits of the PC of the jump instruction plus 4 with the 26-bit immediate field in the instruction and the 2 bits "00". This is done to form a 32-bit address.
 
 To accommodate the jump instruction in the datapath, an additional multiplexer is added to select the source for the new PC value, which can be the incremented PC (PC + 4), the branch target PC, or the jump target PC. A new control signal called "Jump" is used to control this and is asserted  when the opcode indicates a jump instruction (opcode = 2).
 
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/embedded_image_1mips_2a68604a-e2f1-7933-3200-6e98e8d9ad9c_nXytqLBsHJBe31G6EdrE.png)
 
+An additional multiplexor (at the upper right) is used to choose between the jump target and either the branch target or the sequential instruction following this one. This multiplexor is controlled by the jump control signal. The jump target address is obtained by shifting the lower 26 bits of the jump instruction left 2 bits, effectively adding 00 as the low-order bits, and then concatenating the upper 4 bits of PC + 4 as the high-order bits, thus yielding a 32-bit address.
 
+### Why we don't use a single cycle implementation
+
+A single-cycle implementation is inefficient. The clock cycle must be long enough to accommodate the longest path in the processor, which is typically a load instruction. This long cycle time reduces overall performance.
+
+Using a fixed clock cycle for all instructions makes it impossible to optimize for the common case, where some instructions could potentially be executed faster.
+
+While suitable for simple instruction sets, a single-cycle design would struggle with more complex instructions or units like a floating-point unit.
+
+Pipelining, discussed later, uses a similar datapath but achieves higher efficiency by executing multiple instructions simultaneously, improving throughput without extending the clock cycle.
+
+### Additional Stuff
+
+Branch and ALUOp0 are identical. Their control signals could be combined together.
+
+Some control signals are inverses of each other. You don't need an inverter; simply use the other signal and flip the order of the inputs to the multiplexor!
 
 .
 
