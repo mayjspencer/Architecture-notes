@@ -35,6 +35,21 @@ If it were not saved, then the possibility of the use of an incorrect value coul
 - The A and B registers
 - The ALUOut register
 
+### New and Expanded Multiplexors
+Since one memory is used for both instructions and data, we need a multiplexor to select between the 2 sources for a memory address:
+- the PC (for instruction access)
+- ALUOut (for data access).
+
+Replacing the 3 ALUs by a single ALU means that the single ALU must accommodate all the inputs that used to go to the three different ALUs.<br>Handling the additional inputs requires two changes to the datapath:
+
+1. An additional multiplexor is added for the first ALU input. The multiplexor chooses between the A register and the PC.
+2. The multiplexor on the second ALU input is changed from a two-way to a four-way multiplexor. The two additional inputs to the multiplexor are the constant 4 (used to increment the PC) and the sign-extended and shifted off set field (used in the branch address computation).
+
+##### So far we have this datapath for multi cycle
+![Alt text](https://zytools.zybooks.com/zyAuthor/CompOrgAndDesign_PattersonHennesy/56/IMAGES/127ee45b-6e28-350c-3afc-ee7429da9ccb)
+
+
+
 
 
 
